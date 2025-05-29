@@ -1,0 +1,164 @@
+<script type="text/javascript">
+        var gk_isXlsx = false;
+        var gk_xlsxFileLookup = {};
+        var gk_fileData = {};
+        function filledCell(cell) {
+          return cell !== '' && cell != null;
+        }
+        function loadFileData(filename) {
+        if (gk_isXlsx && gk_xlsxFileLookup[filename]) {
+            try {
+                var workbook = XLSX.read(gk_fileData[filename], { type: 'base64' });
+                var firstSheetName = workbook.SheetNames[0];
+                var worksheet = workbook.Sheets[firstSheetName];
+
+                // Convert sheet to JSON to filter blank rows
+                var jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1, blankrows: false, defval: '' });
+                // Filter out blank rows (rows where all cells are empty, null, or undefined)
+                var filteredData = jsonData.filter(row => row.some(filledCell));
+
+                // Heuristic to find the header row by ignoring rows with fewer filled cells than the next row
+                var headerRowIndex = filteredData.findIndex((row, index) =>
+                  row.filter(filledCell).length >= filteredData[index + 1]?.filter(filledCell).length
+                );
+                // Fallback
+                if (headerRowIndex === -1 || headerRowIndex > 25) {
+                  headerRowIndex = 0;
+                }
+
+                // Convert filtered JSON back to CSV
+                var csv = XLSX.utils.aoa_to_sheet(filteredData.slice(headerRowIndex)); // Create a new sheet from filtered array of arrays
+                csv = XLSX.utils.sheet_to_csv(csv, { header: 1 });
+                return csv;
+            } catch (e) {
+                console.error(e);
+                return "";
+            }
+        }
+        return gk_fileData[filename] || "";
+        }
+        </script><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>How to Buy a Vehicle or Home for Beginners</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 font-sans">
+    <!-- Navigation -->
+    <nav class="bg-blue-600 text-white p-4 sticky top-0 shadow-md">
+        <div class="container mx-auto flex justify-between items-center">
+            <h1 class="text-2xl font-bold">Buy Easy</h1>
+            <div class="space-x-4">
+                <a href="#home" class="hover:underline">Home</a>
+                <a href="#vehicle" class="hover:underline">Buying a Vehicle</a>
+                <a href="#home-buying" class="hover:underline">Buying a Home</a>
+                <a href="#contact" class="hover:underline">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="bg-blue-100 py-20 text-center">
+        <div class="container mx-auto px-4">
+            <h2 class="text-4xl font-bold mb-4">How to Buy a Vehicle or Home for Beginners</h2>
+            <p class="text-lg mb-6">Your step-by-step guide to making smart purchases, whether it's your first car or dream home.</p>
+            <a href="#vehicle" class="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700">Get Started</a>
+        </div>
+    </section>
+
+    <!-- Vehicle Buying Section -->
+    <section id="vehicle" class="py-16">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold mb-8 text-center">Buying a Vehicle: A Beginner's Guide</h2>
+            <div class="grid md:grid-cols-2 gap-8">
+                <div class="bg-white p-6 rounded-lg shadow-md">
+                    <h3 class="text-xl font-semibold mb-4">Step 1: Set Your Budget</h3>
+                    <p>Determine how much you can afford monthly, including loan payments, insurance, fuel, and maintenance. Aim to spend no more than 20% of your monthly income on vehicle costs.</p>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-md">
+                    <h3 class="text-xl font-semibold mb-4">Step 2: Research Vehicles</h3>
+                    <p>Compare models based on reliability, fuel efficiency, and features. Websites like Edmunds or Kelley Blue Book can help. Consider new vs. used based on your budget.</p>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-md">
+                    <h3 class="text-xl font-semibold mb-4">Step 3: Get Financing</h3>
+                    <p>Check your credit score and shop for loans from banks, credit unions, or dealerships. Pre-approval can strengthen your negotiating power.</p>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-md">
+                    <h3 class="text-xl font-semibold mb-4">Step 4: Test Drive & Negotiate</h3>
+                    <p>Test drive your top choices and negotiate the price. Research the market value to avoid overpaying. Don’t forget to check for incentives or rebates.</p>
+                </div>
+            </div>
+            <div class="text-center mt-8">
+                <button onclick="alert('Tip: Always check the vehicle history report (e.g., Carfax) for used cars!')" class="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700">Pro Tip</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Home Buying Section -->
+    <section id="home-buying" class="py-16 bg-gray-200">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold mb-8 text-center">Buying a Home: A Beginner's Guide</h2>
+            <div class="grid md:grid-cols-2 gap-8">
+                <div class="bg-white p-6 rounded-lg shadow-md">
+                    <h3 class="text-xl font-semibold mb-4">Step 1: Assess Your Finances</h3>
+                    <p>Calculate your budget, including down payment (aim for 5-20%), mortgage payments, taxes, and insurance. Save for closing costs (2-5% of home price).</p>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-md">
+                    <h3 class="text-xl font-semibold mb-4">Step 2: Get Pre-Approved</h3>
+                    <p>Meet with lenders to get pre-approved for a mortgage. This shows sellers you’re serious and helps you know your price range.</p>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-md">
+                    <h3 class="text-xl font-semibold mb-4">Step 3: Find the Right Home</h3>
+                    <p>Work with a real estate agent to find homes that match your needs. Consider location, size, and future resale potential. Attend open houses.</p>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-md">
+                    <h3 class="text-xl font-semibold mb-4">Step 4: Make an Offer & Close</h3>
+                    <p>Submit an offer with your agent’s help. Once accepted, get a home inspection and finalize your mortgage. Closing involves signing paperwork and paying fees.</p>
+                </div>
+            </div>
+            <div class="text-center mt-8">
+                <button onclick="alert('Tip: A home inspection can save you from costly surprises!')" class="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700">Pro Tip</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-16">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold mb-8 text-center">Contact Us</h2>
+            <div class="max-w-lg mx-auto bg-white p-6 rounded-lg shadow-md">
+                <p class="text-lg mb-4">Have questions about buying a vehicle or home? Reach out to us!</p>
+                <p class="text-lg mb-6"><strong>Email:</strong> <a href="mailto:Cierisolutions@gmail.com" class="text-blue-600 hover:underline">Cierisolutions@gmail.com</a></p>
+                <div>
+                    <h3 class="text-xl font-semibold mb-4">Send Us a Message</h3>
+                    <div class="space-y-4">
+                        <input type="text" id="name" placeholder="Your Name" class="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600">
+                        <input type="email" id="email" placeholder="Your Email" class="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600">
+                        <textarea id="message" placeholder="Your Message" rows="5" class="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600"></textarea>
+                        <button onclick="alert('Thank you for your message! We will get back to you soon.')" class="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 w-full">Send Message</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-blue-600 text-white p-4 text-center">
+        <p>© 2025 Buy Easy. All rights reserved.</p>
+    </footer>
+
+    <!-- Smooth Scroll Script -->
+    <script>
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+</html>
